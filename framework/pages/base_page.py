@@ -1,6 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.ui import Select
 
 
 class Page:
@@ -10,7 +10,7 @@ class Page:
     def open_page(self, url):
         self.driver.get(url)
 
-    def find_element(self, locator, time=3):
+    def find_element(self, locator, time=5):
         return WebDriverWait(self.driver, time).until(
             EC.visibility_of_element_located(locator))
 
@@ -26,7 +26,7 @@ class Page:
         return WebDriverWait(self.driver, time).until(
             EC.text_to_be_present_in_element(locator, text))
 
-    def select_item_element(self, locator, index):
+    """Возвращает None при поиске нужно разобраться"""
+    def select_item_element(self, locator):
         selected = Select(self.find_element(locator))
-        selected.select_by_index(index).click()
-
+        return print(selected.select_by_visible_text('Test'))
