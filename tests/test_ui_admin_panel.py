@@ -1,15 +1,26 @@
+import allure
 from framework.db_client import ClientDB
 
 
+@allure.feature('Тест на создание группы')
 def test_create_group(pages, db_client):
-    pages.login_user('admin', 'password')
-    pages.find_group_in_table()
+    with allure.step('Логинимся админом в приложениии'):
+        pages.login_user('admin', 'password')
+    with allure.step('Открываем страницу с группами и ищем название созданной группы'):
+        pages.find_group_in_table()
 
 
-def test_create_user(pages, db_client):
-    db = ClientDB()
-    pages.login_user('admin', 'password')
-    pages.open_add_user_page()
-    pages.add_user()
-    pages.choose_group_user_and_save()
-    db.check_add_user_in_group()
+@allure.feature('Тест на создание и добавление пользователя в группу')
+def test_create_user_and_add_group(pages, db_client):
+    with allure.step('Инициализируем БД'):
+        db = ClientDB()
+    with allure.step('Логинимся админом в приложениии'):
+        pages.login_user('admin', 'password')
+    with allure.step('Переходим на страницу создания пользователя'):
+        pages.open_add_user_page()
+    with allure.step('Создаем тестового пользователя'):
+        pages.add_user()
+    with allure.step('Открываем страницу пользователя и добавляем в группу'):
+        pages.choose_group_user_and_save()
+    with allure.step('Проверяем что пользователь добавлен в группу'):
+        db.check_add_user_in_group()

@@ -7,7 +7,11 @@ from framework.api_helpers.api_functionality import FuncApi
 
 @pytest.fixture()
 def driver():
-    driver = webdriver.Chrome()
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--disable-gpu')
+    driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.maximize_window()
     driver.implicitly_wait(4)
     yield driver
@@ -36,3 +40,8 @@ def db_client():
 def api_client():
     api_client = FuncApi()
     return api_client
+
+
+"""driver = webdriver.Chrome()
+driver.maximize_window()
+driver.implicitly_wait(4)"""
