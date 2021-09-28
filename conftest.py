@@ -28,6 +28,7 @@ def db_client():
     db.insert_auth_group()
     yield db_client
     db.trunc_table_auth_group()
+    db.delete_test_user()
     db.close_connect()
 
 
