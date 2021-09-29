@@ -26,22 +26,22 @@ class FuncApi(APIClient):
         self.method_post_and_check_body(url, expected_result, body)
 
     def func_login_user(self, user_name=None, paswd=None):
-        if user_name is None and paswd is None:
+        """if user_name is None and paswd is None:
             user_name = self.test_username
-            paswd = self.passwd
-        url = f'{self.url}v2/user/login?username={user_name}&password={paswd}'
+            paswd = self.passwd"""
+        url = f'{self.url}v2/user/login?username={self.test_username}&password={self.passwd}'
         self.method_get_and_check_status(url)
 
     def func_get_user_info(self, expected_result):
-        url = f'{self.url}v2/user/{self.test_username}'
+        url = f'{self.url}v2/user/tester'
         self.method_get_and_check_body(url, expected_result)
 
     def func_logout_user(self, expected_result):
         url = f'{self.url}v2/user/logout'
         self.method_get_and_check_body(url, expected_result)
 
-    def delete_user(self, user_name=None):
-        if user_name is None:
-            user_name = self.test_username
-        url = f'{self.url}v2/user/{user_name}'
+    def delete_user(self):
+        """if user_name is None:
+            user_name = self.test_username"""
+        url = f'{self.url}v2/user/{self.test_username}'
         self.method_delete_and_check_status(url)
