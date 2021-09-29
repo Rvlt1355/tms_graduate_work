@@ -24,6 +24,7 @@ RUN curl -o allure-2.15.0.zip -Ls https://repo.maven.apache.org/maven2/io/qameta
 RUN unzip allure-2.15.0.zip -d /opt/
 RUN ln -s /opt/allure-2.15.0/bin/allure /usr/bin/allure
 RUN allure --version
+COPY requirements.txt /my_app
 RUN pwd
 RUN ls -la
 RUN apt-get update
