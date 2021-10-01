@@ -13,5 +13,5 @@ class UserPage(Page):
     """Добавляем группу для пользователя из списка доступных"""
     def choose_group_user_and_save(self):
         self.find_and_click(lc.GROUP_IN_SELECT)
-        self.find_and_click(lc.ACTIVATION_GROUP_USER)
+        self.find_and_click(lc.ACTIVATION_GROUP_USER, 7)
         self.find_and_click(lc.BUTTON_SAVE)
