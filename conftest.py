@@ -8,14 +8,13 @@ from datetime import datetime
 
 @pytest.fixture()
 def driver():
-    """
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
-    """
-    driver = webdriver.Chrome()
-    # driver = webdriver.Chrome(chrome_options=chrome_options)
+    # driver = webdriver.Chrome()
+    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",
+                              chrome_options=chrome_options)
     driver.maximize_window()
     driver.implicitly_wait(4)
     yield driver
