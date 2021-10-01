@@ -38,6 +38,7 @@ class ClientDB:
         values = (values_id, values_name)
         self.cur.execute(query, values)
         self.db.commit()
+
     """Транкаем таблицу с тестовой группой"""
     def trunc_table_auth_group(self):
         self.cur.execute(f"truncate auth_group cascade")
@@ -53,7 +54,8 @@ class ClientDB:
         self.db.close()
 
     """Функция проверяет созданную группу с группой пользователя"""
-    def check_add_user_in_group(self, group_id="1", user_name='Testuser'):
+    def check_add_user_in_group(self, group_id=1, user_name='Testuser'):
+        id = str(group_id)
         self.cur.execute(f"""select id from auth_user 
         where username = '{user_name}'""")
         user_id = self.cur.fetchone()
@@ -62,8 +64,8 @@ class ClientDB:
                                 (auth_user.id = {user_id[0]})""")
         user_group_id = self.cur.fetchone()
         self.cur.execute(f"select id from auth_group "
-                         f"where id = {group_id}")
+                         f"where id = {id}")
         auth_group_id = self.cur.fetchone()
         assert user_group_id[0] == auth_group_id[0]
         print('user_add_in_group')
-        self.close_connect()
+
