@@ -14,7 +14,6 @@ def driver():
     chrome_options.add_argument('--disable-gpu')
     # driver = webdriver.Chrome()
     driver = webdriver.Chrome(chrome_options=chrome_options)
-    driver.maximize_window()
     driver.implicitly_wait(4)
     yield driver
     driver.quit()
