@@ -32,23 +32,17 @@ def pages(driver):
 def db_client():
     db = ClientDB()
     yield db
-    db.trunc_table_auth_group()
     db.close_connect()
 
 
 @pytest.fixture
-def insert_test_group(db_client):
-    db_client.insert_auth_group()
+def trunc_test_group(db_client):
+    yield
+    db_client.trunc_table_auth_group()
 
 
 @pytest.fixture
 def delete_test_user_in_bd(db_client):
-    db_client.delete_test_user()
-
-
-@pytest.fixture
-def check_user_in_group(db_client):
-    db_client.check_add_user_in_group()
     yield
     db_client.delete_test_user()
 
