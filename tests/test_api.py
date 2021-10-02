@@ -2,7 +2,7 @@ import allure
 import framework.random_values as rm_values
 
 
-@allure.feature('Тест API')
+@allure.feature('Api тесты создания и удаления юзера')
 def test_api_create_user(api_client, delete_users_in_auth_user):
     paswd = rm_values.generator_pswd()
     user_name = rm_values.generator_name()

@@ -10,10 +10,11 @@ class UserPage(Page):
         self.find_and_input(confirm_paswd, lc.INPUT_PASSWORD_CONFIRM)
         self.find_and_click(lc.BUTTON_SAVE)
 
-    """Добавляем группу для пользователя из списка доступных"""
-    def choose_group_user_and_save(self):
+    def select_and_add_user_to_the_group(self):
+        """Добавляем группу для пользователя из списка доступных
+        И сохраняем изменения
+        """
         self.find_and_click(lc.GROUPS_TABLE)
         self.find_and_click(lc.GROUP_IN_TABLE)
         self.find_and_click(lc.ACTIVATION_GROUP_USER)
-        # self.find_and_click(lc.ACTIVATION_GROUP_USER, 7)
         self.find_and_click(lc.BUTTON_SAVE)

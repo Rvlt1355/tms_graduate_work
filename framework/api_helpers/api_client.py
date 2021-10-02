@@ -35,6 +35,7 @@ class APIClient:
                 ApiChecker.check_status(expected_result, result.status_code)
             except:
                 if retry_attempt < retry_attempts:
+                    """Проверяем количество попыток в эксепшене и повторяем запрос"""
                     sleep(retry_delay)
                     continue
 
@@ -47,6 +48,7 @@ class APIClient:
                 ApiChecker.check_status(expected_result, result.status_code)
             except:
                 if retry_attempt < retry_attempts:
+                    """Проверяем количество попыток в эксепшене и повторяем запрос"""
                     sleep(retry_delay)
                     continue
 
@@ -59,5 +61,6 @@ class APIClient:
                 ApiChecker.check_status(expected_result, result.status_code)
             except:
                 if retry_attempt < retry_attempts:
+                    """Проверяем количество попыток в эксепшене и повторяем запрос"""
                     sleep(retry_delay)
                     continue

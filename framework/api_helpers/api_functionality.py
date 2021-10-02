@@ -2,6 +2,7 @@ from framework.api_helpers.api_client import APIClient
 
 
 class FuncApi(APIClient):
+    """Класс наследуюется от основной APIClientа"""
     def __init__(self):
         super().__init__()
         self.first_name = "firstName"
@@ -37,7 +38,5 @@ class FuncApi(APIClient):
         self.get(url, expected_result)
 
     def delete_user(self, uname: str):
-        """if user_name is None:
-            user_name = self.test_username"""
         url = f'{self.url}v2/user/{uname}'
         self.delete(url, retry_attempts=1, retry_delay=2)
