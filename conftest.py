@@ -3,7 +3,6 @@ from selenium import webdriver
 from framework.db_client import ClientDB
 from framework.pages import UIWorker
 from framework.api_helpers.api_functionality import FuncApi
-from datetime import datetime
 
 
 @pytest.fixture()
@@ -12,10 +11,11 @@ def driver():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--disable-gpu')"""
-    driver = webdriver.Chrome()
-    """driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",
-                              chrome_options=chrome_options)"""
+    chrome_options.add_argument('--disable-gpu')
+    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",
+                              chrome_options=chrome_options)
+    """
+    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver")
     driver.maximize_window()
     driver.implicitly_wait(4)
     yield driver

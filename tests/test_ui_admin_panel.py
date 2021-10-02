@@ -2,7 +2,9 @@ import allure
 
 
 @allure.feature('Тест на создание группы')
-def test_create_group(pages, db_client, insert_test_group):
+def test_create_group(pages, db_client, trunc_test_group):
+    with allure.step('Создаем группу в БД'):
+        db_client.insert_auth_group()
     with allure.step('Логинимся админом в приложениии'):
         pages.login_user('admin', 'password')
     with allure.step('Открываем страницу с группами и ищем название созданной группы'):
@@ -10,8 +12,9 @@ def test_create_group(pages, db_client, insert_test_group):
 
 
 @allure.feature('Тест на создание и добавление пользователя в группу')
-def test_create_user_and_add_group(pages, db_client, delete_test_user_in_bd, trunc_test_group):
-    with allure.step('Создаем группу пользователю'):
+def test_create_user_and_add_group(pages, db_client, delete_test_user_in_bd,
+                                   trunc_test_group):
+    with allure.step('Создаем группу в БД'):
         db_client.insert_auth_group()
     with allure.step('Логинимся админом в приложениии'):
         pages.login_user('admin', 'password')
