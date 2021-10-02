@@ -24,6 +24,7 @@ def test_create_user_and_add_group(pages, db_client, delete_test_user_in_bd,
         pages.add_user()
     with allure.step('Открываем страницу пользователя и добавляем в группу'):
         pages.choose_group_user_and_save()
+        pages.get_screenshot_as_png()
     with allure.step('Проверяем что пользователь добавлен в группу'):
         db_client.check_add_user_in_group()
 
