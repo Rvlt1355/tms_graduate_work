@@ -11,10 +11,9 @@ def driver():
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument('--whitelisted-ips="127.0.0.1"')
-    chrome_options.add_argument('--port=4444')
+    #chrome_options.add_argument('--whitelisted-ips="127.0.0.1"')
+    #chrome_options.add_argument('--port=4444')
     chrome_options.add_argument("--window-size=1920,1080")
-    chrome_options.add_argument('--whitelisted-ips="127.0.0.1"')
     driver = webdriver.Chrome(options=chrome_options)
     driver.implicitly_wait(4)
     yield driver
