@@ -1,4 +1,5 @@
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 
@@ -26,7 +27,3 @@ class Page:
         return WebDriverWait(self.driver, time).until(
             EC.text_to_be_present_in_element(locator, text))
 
-    """Возвращает None при поиске нужно разобраться"""
-    def select_item_element(self, locator):
-        selected = Select(self.find_element(locator))
-        return print(selected.select_by_visible_text('Test'))

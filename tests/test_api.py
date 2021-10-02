@@ -1,16 +1,19 @@
 import allure
-from framework.api_helpers.expected_results import CollectionExpectedResult as ER
+import framework.random_values as rm_values
 
 
 @allure.feature('Тест API')
-def test_api_create_user(api_client):
+def test_api_create_user(api_client, delete_users_in_auth_user):
+    paswd = rm_values.generator_pswd()
+    user_name = rm_values.generator_name()
+    id = rm_values.generator_id()
     with allure.step('Create user'):
-        api_client.func_create_user(ER.CREATE_USER_RESPONSE)
+        api_client.create_user(id, user_name, paswd)
     with allure.step('Login test user'):
-        api_client.func_login_user()
-    with allure.step('Get info test user'):
-        api_client.func_get_user_info(ER.GET_USER_INFO_RESPONSE)
+        api_client.login_user(user_name, paswd)
+    with allure.step('Check user_info'):
+        api_client.check_user_info(user_name)
     with allure.step('Logout'):
-        api_client.func_logout_user(ER.LOGOUT_RESPONSE)
+        api_client.logout_user()
     with allure.step('Delete user'):
-        api_client.delete_user()
+        api_client.delete_user(user_name)

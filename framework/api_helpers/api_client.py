@@ -1,8 +1,10 @@
 import json
 import requests
+from time import sleep
 
 
 class ApiChecker:
+
     @staticmethod
     def check_body(expected_result, result):
         assert expected_result == result
@@ -15,27 +17,47 @@ class ApiChecker:
 
 
 class APIClient:
+    default_status_code = 200
+    GET = 'get'
+    POST = 'post'
+    DELETE = 'delete'
 
     def __init__(self):
         self.url = 'https://petstore.swagger.io/'
         self.headers = {'Content-Type': 'application/json'}
 
-    def method_post_and_check_body(self, url, expected_result=None, body=None):
-        result = requests.post(url, data=json.dumps(body), headers=self.headers)
-        ApiChecker.check_body(expected_result, result.json())
+    def post(self, url, expected_result: dict = None, body: dict = None,  retry_attempts=0, retry_delay=1):
+        if not expected_result:
+            expected_result = self.default_status_code
+        for retry_attempt in range(retry_attempts + 1):
+            try:
+                result = requests.post(url, data=json.dumps(body), headers=self.headers)
+                ApiChecker.check_status(expected_result, result.status_code)
+            except:
+                if retry_attempt < retry_attempts:
+                    sleep(retry_delay)
+                    continue
 
-    def method_get_and_check_status(self, url, expected_result=None):
-        if expected_result is None:
-            expected_result = 200
-        result = requests.get(url, headers=self.headers)
-        ApiChecker.check_status(expected_result, result.status_code)
+    def get(self, url, expected_result=None, retry_attempts=0, retry_delay=1):
+        if not expected_result:
+            expected_result = self.default_status_code
+        for retry_attempt in range(retry_attempts + 1):
+            try:
+                result = requests.get(url, headers=self.headers)
+                ApiChecker.check_status(expected_result, result.status_code)
+            except:
+                if retry_attempt < retry_attempts:
+                    sleep(retry_delay)
+                    continue
 
-    def method_get_and_check_body(self, url, expected_result=None):
-        result = requests.get(url, headers=self.headers)
-        ApiChecker.check_body(expected_result, result.json())
-
-    def method_delete_and_check_status(self, url, expected_result=None):
-        if expected_result is None:
-            expected_result = 200
-        result = requests.delete(url, headers=self.headers)
-        ApiChecker.check_status(expected_result, result.status_code)
+    def delete(self, url, expected_result=None, retry_attempts=0, retry_delay=1):
+        if not expected_result:
+            expected_result = self.default_status_code
+        for retry_attempt in range(retry_attempts + 1):
+            try:
+                result = requests.delete(url, headers=self.headers)
+                ApiChecker.check_status(expected_result, result.status_code)
+            except:
+                if retry_attempt < retry_attempts:
+                    sleep(retry_delay)
+                    continue

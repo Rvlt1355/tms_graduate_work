@@ -7,14 +7,14 @@ class AdminPage(Page):
         self.find_and_click(lc.BUTTON_GROUPS)
 
     def click_group(self):
-        self.find_and_click(lc.GROUPS_NAME_TEST)
+        self.find_and_click(lc.GROUPS_NAME)
 
     def find_title_group(self):
         self.find_element(lc.GROUPS_TITLE)
 
-    def find_group_in_table(self, group_name='Test'):
+    def find_group_in_table(self, group_name="Test"):
         self.open_groups_page()
-        self.find_and_chek_text(lc.GROUPS_NAME_TEST, group_name)
+        self.find_and_chek_text(lc.GROUPS_NAME, group_name)
 
     def open_group(self):
         self.open_groups_page()

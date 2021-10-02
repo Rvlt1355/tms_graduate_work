@@ -5,14 +5,16 @@ from framework.pages import UIWorker
 from framework.api_helpers.api_functionality import FuncApi
 
 
-@pytest.fixture()
+@pytest.fixture
 def driver():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(chrome_options=chrome_options)
-    driver.maximize_window()
+    chrome_options.add_argument("--window-size=1920,1080")
+    driver = webdriver.Chrome(options=chrome_options)
+    # driver = webdriver.Chrome()
+    # driver.maximize_window()
     driver.implicitly_wait(4)
     yield driver
     driver.quit()
@@ -29,11 +31,36 @@ def pages(driver):
 @pytest.fixture
 def db_client():
     db = ClientDB()
-    db.insert_auth_group()
-    yield db_client
-    db.trunc_table_auth_group()
-    db.delete_test_user()
+    yield db
     db.close_connect()
+
+
+"""Фикстура для очистки auth_group"""
+
+
+@pytest.fixture
+def trunc_table_auth_group(db_client):
+    yield
+    db_client.trunc_table_auth_group()
+
+
+"""Фикстура для удаления определенного пользователя"""
+
+
+@pytest.fixture
+def delete_test_user_in_auth_user(db_client):
+    yield
+    db_client.delete_test_user()
+
+
+"""Фикстура удаляет всех тестовых пользователей в auth_user 
+    кроме суперпользователя admin"""
+
+
+@pytest.fixture
+def delete_users_in_auth_user(db_client):
+    yield
+    db_client.delete_users_not_admin_in_auth_user()
 
 
 @pytest.fixture
@@ -41,7 +68,3 @@ def api_client():
     api_client = FuncApi()
     return api_client
 
-
-"""driver = webdriver.Chrome()
-driver.maximize_window()
-driver.implicitly_wait(4)"""

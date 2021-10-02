@@ -38,6 +38,7 @@ class ClientDB:
         values = (values_id, values_name)
         self.cur.execute(query, values)
         self.db.commit()
+
     """Транкаем таблицу с тестовой группой"""
     def trunc_table_auth_group(self):
         self.cur.execute(f"truncate auth_group cascade")
@@ -66,4 +67,10 @@ class ClientDB:
         auth_group_id = self.cur.fetchone()
         assert user_group_id[0] == auth_group_id[0]
         print('user_add_in_group')
-        self.close_connect()
+
+    """Метод удаляет всех тестовых пользователей в auth_user 
+    кроме суперпользователя admin"""
+    def delete_users_not_admin_in_auth_user(self):
+        self.cur.execute(f"""delete from auth_user 
+        where username != 'admin'""")
+        self.db.commit()
