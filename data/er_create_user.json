@@ -1,0 +1,12 @@
+{
+  "response_info": {
+    "id": 1,
+    "username": "tester",
+    "firstName": "firstName",
+    "lastName": "lastName",
+    "email": "test@test.com",
+    "password": "password",
+    "phone": "1234567890",
+    "userStatus": 1
+  }
+}

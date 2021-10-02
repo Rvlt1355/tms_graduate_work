@@ -3,7 +3,6 @@ from selenium import webdriver
 from framework.db_client import ClientDB
 from framework.pages import UIWorker
 from framework.api_helpers.api_functionality import FuncApi
-import framework.random_values as rm_values
 
 
 @pytest.fixture
@@ -36,16 +35,32 @@ def db_client():
     db.close_connect()
 
 
+"""Фикстура для очистки auth_group"""
+
+
 @pytest.fixture
-def trunc_test_group(db_client):
+def trunc_table_auth_group(db_client):
     yield
     db_client.trunc_table_auth_group()
 
 
+"""Фикстура для удаления определенного пользователя"""
+
+
 @pytest.fixture
-def delete_test_user_in_bd(db_client):
+def delete_test_user_in_auth_user(db_client):
     yield
     db_client.delete_test_user()
+
+
+"""Фикстура удаляет всех тестовых пользователей в auth_user 
+    кроме суперпользователя admin"""
+
+
+@pytest.fixture
+def delete_users_in_auth_user(db_client):
+    yield
+    db_client.delete_users_not_admin_in_auth_user()
 
 
 @pytest.fixture
@@ -53,10 +68,3 @@ def api_client():
     api_client = FuncApi()
     return api_client
 
-
-"""@pytest.fixture
-def random_values():
-    group_name = rm_values.generator_name()
-    user_name = rm_values.generator_name()
-    group_id = rm_values.generator_id()
-    return group_id, group_name, user_name"""

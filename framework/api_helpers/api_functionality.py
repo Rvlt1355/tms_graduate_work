@@ -4,44 +4,39 @@ from framework.api_helpers.api_client import APIClient
 class FuncApi(APIClient):
     def __init__(self):
         super().__init__()
-        self.test_username = "tester"
         self.first_name = "firstName"
         self.last_name = "lastName"
         self.email = "test@test.com"
-        self.passwd = "password"
         self.phone = "1234567890"
 
-    def func_create_user(self, expected_result):
+    def create_user(self, id: int = None, username: str = None, passwd: str = None, expected_result: dict = None):
         url = self.url + 'v2/user'
         body = {
-                  "id": 1,
-                  "username": self.test_username,
+                  "id": int(id),
+                  "username": username,
                   "firstName": self.first_name,
                   "lastName": self.last_name,
                   "email": self.email,
-                  "password": self.passwd,
+                  "password": passwd,
                   "phone": self.phone,
                   "userStatus": 1
                 }
-        self.method_post_and_check_body(url, expected_result, body)
+        self.post(url, expected_result, body)
 
-    def func_login_user(self, user_name=None, paswd=None):
-        """if user_name is None and paswd is None:
-            user_name = self.test_username
-            paswd = self.passwd"""
-        url = f'{self.url}v2/user/login?username={self.test_username}&password={self.passwd}'
-        self.method_get_and_check_status(url)
+    def login_user(self, user_name='', paswd=''):
+        url = f'{self.url}v2/user/login?username={user_name}&password={paswd}'
+        self.get(url, retry_attempts=0, retry_delay=2)
 
-    def func_get_user_info(self, expected_result):
-        url = f'{self.url}v2/user/tester'
-        self.method_get_and_check_body(url, expected_result)
+    def check_user_info(self, uname, expected_result: dict = None):
+        url = f'{self.url}v2/user/{uname}'
+        self.get(url, expected_result, retry_attempts=3, retry_delay=2)
 
-    def func_logout_user(self, expected_result):
+    def logout_user(self, expected_result: dict = None):
         url = f'{self.url}v2/user/logout'
-        self.method_get_and_check_body(url, expected_result)
+        self.get(url, expected_result)
 
-    def delete_user(self):
+    def delete_user(self, uname: str):
         """if user_name is None:
             user_name = self.test_username"""
-        url = f'{self.url}v2/user/{self.test_username}'
-        self.method_delete_and_check_status(url)
+        url = f'{self.url}v2/user/{uname}'
+        self.delete(url, retry_attempts=2, retry_delay=2)
