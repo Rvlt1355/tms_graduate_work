@@ -13,7 +13,7 @@ def driver():
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument('--whitelisted-ips="127.0.0.1"')
     chrome_options.add_argument("--window-size=1920,1080")
-    driver = webdriver.Chrome(options=chrome_options, port=4444)
+    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver", options=chrome_options)
     driver.implicitly_wait(4)
     yield driver
     driver.quit()
