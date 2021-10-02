@@ -28,11 +28,11 @@ def pages(driver):
     return page
 
 
-@pytest.fixture
+"""@pytest.fixture
 def db_client():
     db = ClientDB()
     yield db
-    db.close_connect()
+    db.close_connect()"""
 
 
 """Фикстура для очистки auth_group"""
