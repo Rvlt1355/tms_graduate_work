@@ -11,8 +11,7 @@ def test_api_create_user(api_client, delete_users_in_auth_user):
         api_client.create_user(id, user_name, paswd)
     with allure.step('Login test user'):
         api_client.login_user(user_name, paswd)
-    with allure.step('Get info test user'):
-        # sleep(5)
+    with allure.step('Check user_info'):
         api_client.check_user_info(user_name)
     with allure.step('Logout'):
         api_client.logout_user()

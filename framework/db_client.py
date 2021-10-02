@@ -68,3 +68,9 @@ class ClientDB:
         assert user_group_id[0] == auth_group_id[0]
         print('user_add_in_group')
 
+    """Метод удаляет всех тестовых пользователей в auth_user 
+    кроме суперпользователя admin"""
+    def delete_users_not_admin_in_auth_user(self):
+        self.cur.execute(f"""delete from auth_user 
+        where username != 'admin'""")
+        self.db.commit()
