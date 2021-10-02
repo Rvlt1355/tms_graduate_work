@@ -9,7 +9,8 @@ class FuncApi(APIClient):
         self.email = "test@test.com"
         self.phone = "1234567890"
 
-    def create_user(self, id: int = None, username: str = None, passwd: str = None, expected_result: dict = None):
+    def create_user(self, id: int = None, username: str = None,
+                    passwd: str = None, expected_result: dict = None):
         url = self.url + 'v2/user'
         body = {
                   "id": int(id),
@@ -29,7 +30,7 @@ class FuncApi(APIClient):
 
     def check_user_info(self, uname, expected_result: dict = None):
         url = f'{self.url}v2/user/{uname}'
-        self.get(url, expected_result, retry_attempts=3, retry_delay=2)
+        self.get(url, expected_result, retry_attempts=1, retry_delay=2)
 
     def logout_user(self, expected_result: dict = None):
         url = f'{self.url}v2/user/logout'
@@ -39,4 +40,4 @@ class FuncApi(APIClient):
         """if user_name is None:
             user_name = self.test_username"""
         url = f'{self.url}v2/user/{uname}'
-        self.delete(url, retry_attempts=2, retry_delay=2)
+        self.delete(url, retry_attempts=1, retry_delay=2)
