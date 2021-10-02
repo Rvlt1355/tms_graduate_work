@@ -10,7 +10,7 @@ BUTTON_LOGIN = (By.CSS_SELECTOR, '[type="submit"]')
 
 # ADMIN PAGE LOCATORS
 BUTTON_GROUPS = (By.XPATH, '//a[text()="Groups"]')
-GROUPS_NAME_TEST = (By.XPATH, '//a[text()="Test"]')
+GROUPS_NAME = (By.XPATH, '//th[@class="field-__str__"]/a')
 BUTTON_GO = (By.CSS_SELECTOR, '[class="button"]')
 GROUPS_TITLE = (By.CSS_SELECTOR, "#content>h2")
 USER_ADD = (By.CSS_SELECTOR, '.model-user :nth-child(2)>a')

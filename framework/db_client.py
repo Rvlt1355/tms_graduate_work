@@ -54,8 +54,7 @@ class ClientDB:
         self.db.close()
 
     """Функция проверяет созданную группу с группой пользователя"""
-    def check_add_user_in_group(self, group_id=1, user_name='Testuser'):
-        id = str(group_id)
+    def check_add_user_in_group(self, group_id="1", user_name='Testuser'):
         self.cur.execute(f"""select id from auth_user 
         where username = '{user_name}'""")
         user_id = self.cur.fetchone()
@@ -64,7 +63,7 @@ class ClientDB:
                                 (auth_user.id = {user_id[0]})""")
         user_group_id = self.cur.fetchone()
         self.cur.execute(f"select id from auth_group "
-                         f"where id = {id}")
+                         f"where id = {group_id}")
         auth_group_id = self.cur.fetchone()
         assert user_group_id[0] == auth_group_id[0]
         print('user_add_in_group')

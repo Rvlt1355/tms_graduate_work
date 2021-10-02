@@ -3,9 +3,10 @@ from selenium import webdriver
 from framework.db_client import ClientDB
 from framework.pages import UIWorker
 from framework.api_helpers.api_functionality import FuncApi
+import framework.random_values as rm_values
 
 
-@pytest.fixture()
+@pytest.fixture
 def driver():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--no-sandbox')
@@ -13,8 +14,8 @@ def driver():
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument("--window-size=1920,1080")
     driver = webdriver.Chrome(options=chrome_options)
-    # driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver")
-    # driver.set_window_size(1920, 1080)
+    # driver = webdriver.Chrome()
+    # driver.maximize_window()
     driver.implicitly_wait(4)
     yield driver
     driver.quit()
@@ -51,3 +52,11 @@ def delete_test_user_in_bd(db_client):
 def api_client():
     api_client = FuncApi()
     return api_client
+
+
+"""@pytest.fixture
+def random_values():
+    group_name = rm_values.generator_name()
+    user_name = rm_values.generator_name()
+    group_id = rm_values.generator_id()
+    return group_id, group_name, user_name"""
