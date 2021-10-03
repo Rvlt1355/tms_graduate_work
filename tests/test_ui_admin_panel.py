@@ -2,8 +2,8 @@ import allure
 import framework.random_values as rm_values
 
 
-@allure.story('UI тесты')
-@allure.feature('Тест на создание группы')
+@allure.feature('UI тесты')
+@allure.story('Тест на создание группы')
 def test_create_group(pages, db_client, trunc_table_auth_group):
     group_id = rm_values.generator_id()
     group_name = rm_values.generator_name()
@@ -15,8 +15,9 @@ def test_create_group(pages, db_client, trunc_table_auth_group):
     with allure.step('Открываем страницу с группами и ищем название созданной группы'):
         pages.find_group_in_table(group_name)
 
-@allure.story('UI тесты')
-@allure.feature('Тест на создание и добавление пользователя в группу')
+
+@allure.feature('UI тесты')
+@allure.story('Тест на создание и добавление пользователя в группу')
 def test_create_user_and_add_group(pages, db_client,
                                    delete_test_user_in_auth_user,
                                    trunc_table_auth_group):
