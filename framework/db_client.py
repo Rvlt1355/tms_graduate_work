@@ -32,20 +32,20 @@ class ClientDB:
             host=self.host)
         self.cur = self.db.cursor()
 
-    """Добавляем тестовую группу"""
     def insert_auth_group(self, values_id="1", values_name="Test"):
+        """Добавляем тестовую группу"""
         query = "insert into auth_group (id, name) values (%s, %s)"
         values = (values_id, values_name)
         self.cur.execute(query, values)
         self.db.commit()
 
-    """Транкаем таблицу с тестовой группой"""
     def trunc_table_auth_group(self):
+        """Транкаем таблицу с тестовой группой"""
         self.cur.execute(f"truncate auth_group cascade")
         self.db.commit()
 
-    """Функция удаляет тестового пользователя из таблицы"""
     def delete_test_user(self, user_name='Testuser'):
+        """Функция удаляет тестового пользователя из таблицы"""
         self.cur.execute(f"""delete from auth_user 
         where username = '{user_name}'""")
         self.db.commit()
@@ -53,8 +53,8 @@ class ClientDB:
     def close_connect(self):
         self.db.close()
 
-    """Функция проверяет созданную группу с группой пользователя"""
     def check_add_user_in_group(self, group_id="1", user_name='Testuser'):
+        """Функция проверяет созданную группу с группой пользователя"""
         self.cur.execute(f"""select id from auth_user 
         where username = '{user_name}'""")
         user_id = self.cur.fetchone()
@@ -68,9 +68,9 @@ class ClientDB:
         assert user_group_id[0] == auth_group_id[0]
         print('user_add_in_group')
 
-    """Метод удаляет всех тестовых пользователей в auth_user 
-    кроме суперпользователя admin"""
     def delete_users_not_admin_in_auth_user(self):
+        """Метод удаляет всех тестовых пользователей в auth_user
+           кроме суперпользователя admin"""
         self.cur.execute(f"""delete from auth_user 
         where username != 'admin'""")
         self.db.commit()
