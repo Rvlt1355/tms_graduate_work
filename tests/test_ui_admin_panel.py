@@ -18,7 +18,7 @@ class TestOne:
             pages.find_group_in_table(group_name)
 
 
-@allure.label('CVM')
+@allure.label('B2C')
 class TestTwo:
     @allure.feature('UI тесты')
     @allure.story('Тест на создание и добавление пользователя в группу')
