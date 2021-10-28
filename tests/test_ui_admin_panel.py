@@ -2,7 +2,7 @@ import allure
 import framework.random_values as rm_values
 
 
-@allure.tag('CVM')
+@allure.tag('test1')
 class TestOne:
     @allure.feature('UI тесты')
     @allure.story('Тест на создание группы')
@@ -18,7 +18,7 @@ class TestOne:
             pages.find_group_in_table(group_name)
 
 
-@allure.tag('B2C')
+@allure.tag('test2')
 class TestTwo:
     @allure.feature('UI тесты')
     @allure.story('Тест на создание и добавление пользователя в группу')
